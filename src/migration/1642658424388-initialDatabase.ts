@@ -15,18 +15,22 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
           },
           {
             name: 'email',
             type: 'varchar',
+            isUnique: true,
           },
           {
             name: 'token',
             type: 'varchar',
+            isUnique: true,
           },
           {
             name: 'updatedAt',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'createdAt',
@@ -51,6 +55,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
           },
           {
             name: 'userId',
@@ -113,6 +118,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
           },
           {
             name: 'userId',
@@ -169,6 +175,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
           },
           {
             name: 'year',
@@ -225,6 +232,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
           },
           {
             name: 'userId',
@@ -271,9 +279,9 @@ export class initialDatabase1642658424388 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('user');
     await queryRunner.dropTable('debt');
     await queryRunner.dropTable('income');
     await queryRunner.dropTable('monthReference');
+    await queryRunner.dropTable('user');
   }
 }

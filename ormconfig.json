@@ -6,9 +6,7 @@
    "password": "123",
    "database": "financeData",
    "logging": false,
-   "entities": [
-      "src/entity/**/*.ts"
-   ],
+   "entities": ["src/entity/*.ts", "./build/src/entity/*.js", "src/*.entity.ts"],
    "migrations": [
       "src/migration/**/*.ts"
    ],
