@@ -1,6 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { from, Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { UserInterface } from './user.interface';
@@ -12,7 +11,27 @@ export class UserService {
     private readonly userRepository: Repository<UserInterface>,
   ) {}
 
-  create(User: UserInterface): Observable<UserInterface> {
-    return from(this.userRepository.save(User));
+  create(User: UserInterface): Promise<UserInterface> {
+    return this.userRepository.save(User).catch((e) => {
+
+      if (e.code === "23505") {
+        throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT ,
+          error: e.detail,
+        },
+        HttpStatus.CONFLICT,
+      );
+      } else {
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: e.detail,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      return e;
+    });
   }
 }
