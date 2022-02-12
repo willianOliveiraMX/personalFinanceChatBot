@@ -8,7 +8,8 @@ import {
 import { UserService } from './user.service';
 import { UserInterface } from './user.interface';
 import { HttpExceptionFilter } from '../filters/http-filter';
-// @UseInterceptors(UserInterceptor)
+import { UserDto } from './user.dto';
+import { User } from './user.entity';
 
 @Controller('user')
 export class UserController {
@@ -21,7 +22,7 @@ export class UserController {
 
   @Post()
   @UseFilters(new HttpExceptionFilter())
-  create(@Body() userInterface: UserInterface): Promise<UserInterface> {
-    return this.userService.create(userInterface)
+  create(@Body() userDto: UserDto): Promise<UserInterface> {
+    return this.userService.create(userDto)
   }
 }

@@ -11,9 +11,9 @@ export class UserService {
     private readonly userRepository: Repository<UserInterface>,
   ) {}
 
-  create(User: UserInterface): Promise<UserInterface> {
-    return this.userRepository.save(User).catch((e) => {
-
+  create(User: UserInterface): any{
+    const result = this.userRepository.save(User)
+    .catch((e) => {
       if (e.code === "23505") {
         throw new HttpException(
         {
@@ -31,7 +31,8 @@ export class UserService {
           HttpStatus.BAD_REQUEST,
         );
       }
-      return e;
     });
+
+    return result;
   }
 }
