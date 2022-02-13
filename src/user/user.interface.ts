@@ -2,7 +2,7 @@
 import { Timestamp } from 'typeorm';
 export interface UserInterface {
   id?: number,
-  emil?: string,
+  email?: string,
   token?: string,
   updatedAt?: Timestamp,
   createdAt?: Timestamp,

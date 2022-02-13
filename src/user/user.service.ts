@@ -11,17 +11,21 @@ export class UserService {
     private readonly userRepository: Repository<UserInterface>,
   ) {}
 
+  findOne(id: number): Promise<UserInterface> {
+    return this.userRepository.findOne(id, { where: { isValid: true } });
+  }
+
   create(User: UserInterface): any{
     const result = this.userRepository.save(User)
     .catch((e) => {
       if (e.code === "23505") {
         throw new HttpException(
-        {
-          status: HttpStatus.CONFLICT ,
-          error: e.detail,
-        },
-        HttpStatus.CONFLICT,
-      );
+          {
+            status: HttpStatus.CONFLICT ,
+            error: e.detail,
+          },
+          HttpStatus.CONFLICT,
+        );
       } else {
         throw new HttpException(
           {
@@ -34,5 +38,21 @@ export class UserService {
     });
 
     return result;
+  }
+
+  update(User: UserInterface): any{
+    const result = this.userRepository.update(User.id, 
+      {
+        updatedAt: new Date(),
+        email: User.email,
+        token: User.token
+      });
+    console.log(result) 
+    return result;
+  }
+
+  deleteOne(id: number): any{
+    console.log(id);
+    return this.userRepository.update(id, { isValid: false })
   }
 }
