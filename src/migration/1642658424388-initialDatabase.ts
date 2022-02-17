@@ -123,7 +123,6 @@ export class initialDatabase1642658424388 implements MigrationInterface {
           {
             name: 'userId',
             type: 'int',
-            isUnique: true,
           },
           {
             name: 'description',
@@ -136,7 +135,6 @@ export class initialDatabase1642658424388 implements MigrationInterface {
           {
             name: 'monthId',
             type: 'integer',
-            isUnique: true,
           },
           {
             name: 'updatedAt',
@@ -179,11 +177,11 @@ export class initialDatabase1642658424388 implements MigrationInterface {
           },
           {
             name: 'year',
-            type: 'timestamp',
+            type: 'varchar',
           },
           {
             name: 'month',
-            type: 'timestamp',
+            type: 'varchar',
           },
           {
             name: 'updatedAt',

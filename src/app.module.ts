@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
+import { MonthReferenceEntity } from './monthreference/monthreference.entity';
+import { MonthreferenceModule } from './monthreference/monthreference.module';
+import { IncomeModule } from './income/income.module';
+import { IncomeEntity } from './income/income.entity';
 
 @Module({
   imports: [
@@ -14,15 +16,15 @@ import { User } from './user/user.entity';
       username: 'postgres',
       password: '123',
       database: 'financeData',
-      entities: [User],
+      entities: [User, MonthReferenceEntity, IncomeEntity],
       migrations: ['migration/*.js'],
       cli: {
         migrationsDir: 'src/migration',
       },
     }),
     UserModule,
+    MonthreferenceModule,
+    IncomeModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

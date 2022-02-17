@@ -47,12 +47,10 @@ export class UserService {
         email: User.email,
         token: User.token
       });
-    console.log(result) 
     return result;
   }
 
   deleteOne(id: number): any{
-    console.log(id);
     return this.userRepository.update(id, { isValid: false })
   }
 }
