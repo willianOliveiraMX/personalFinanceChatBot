@@ -1,4 +1,4 @@
-import { IsEmail, IsInt, IsNotEmpty } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class IncomeDto {
 
@@ -13,4 +13,14 @@ export class IncomeDto {
 
   @IsInt()
   monthId: number;
+}
+
+export class IncomeUpdateDto {
+
+  @IsOptional()
+  description: string;
+
+  @IsOptional()
+  @IsInt()
+  value: number;
 }

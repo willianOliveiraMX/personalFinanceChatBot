@@ -11,7 +11,29 @@ export class IncomeService {
         private readonly incomeRepository: Repository<Income>
     ){}
 
+    getIncomesByUserId(userId: number): Promise<Income[]> {
+        return this.incomeRepository.find(
+            {
+                where: {
+                   userId: userId, isValid: true
+                }
+            }
+        )
+    }
+
     create(Income: Income): Promise<Income> {
         return this.incomeRepository.save({...Income, updatedAt: new Date() })
+    }
+
+    delete(incomeId: number): any {
+        return this.incomeRepository.update(incomeId, { isValid: false });
+    }
+
+    update(income: Income): any {
+        return this.incomeRepository.update(income.id, {
+            updatedAt: new Date(),
+            ...income.description ? ({description: income.description}) : null, 
+            ...income.value ? ({value: income.value}) : null,
+        });
     }
 }
