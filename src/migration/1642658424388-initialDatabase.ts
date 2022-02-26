@@ -56,11 +56,11 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             type: 'int',
             isPrimary: true,
             isGenerated: true,
+            isUnique: true,
           },
           {
             name: 'userId',
             type: 'int',
-            isUnique: true,
           },
           {
             name: 'description',
@@ -73,10 +73,12 @@ export class initialDatabase1642658424388 implements MigrationInterface {
           {
             name: 'installmentTotal',
             type: 'int',
+            isNullable: true,
           },
           {
             name: 'installmentCurrent',
             type: 'int',
+            isNullable: true,
           },
           {
             name: 'dateToPay',
@@ -85,16 +87,25 @@ export class initialDatabase1642658424388 implements MigrationInterface {
           {
             name: 'monthId',
             type: 'int',
-            isUnique: true,
+          },
+          {
+            name: 'groupId',
+            type: 'int',
           },
           {
             name: 'updatedAt',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'createdAt',
             type: 'timestamp',
             default: 'now()',
+          },
+          {
+            name: 'isValid',
+            type: 'boolean',
+            default: true,
           },
         ],
       }),
@@ -139,6 +150,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
           {
             name: 'updatedAt',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'createdAt',
@@ -186,6 +198,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
           {
             name: 'updatedAt',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'createdAt',
@@ -249,6 +262,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
           {
             name: 'updatedAt',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'createdAt',
@@ -271,6 +285,60 @@ export class initialDatabase1642658424388 implements MigrationInterface {
         columnNames: ['userId'],
         referencedColumnNames: ['id'],
         referencedTableName: 'user',
+        onDelete: 'CASCADE',
+      }),
+    );
+
+    await queryRunner.createForeignKey(
+      'balance',
+      new TableForeignKey({
+        columnNames: ['monthId'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'monthReference',
+        onDelete: 'CASCADE',
+      }),
+    );
+
+    await queryRunner.createTable(
+      new Table({
+        name: 'debtGroup',
+        columns: [
+          {
+            name: 'id',
+            type: 'int',
+            isPrimary: true,
+            isGenerated: true,
+          },
+          {
+            name: 'description',
+            type: 'varchar',
+          },
+          {
+            name: 'updatedAt',
+            type: 'timestamp',
+            isNullable: true,
+          },
+          {
+            name: 'createdAt',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'isValid',
+            type: 'boolean',
+            default: true,
+          },
+        ],
+      }),
+      true,
+    );  
+
+    await queryRunner.createForeignKey(
+      'debt',
+      new TableForeignKey({
+        columnNames: ['groupId'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'debtGroup',
         onDelete: 'CASCADE',
       }),
     );

@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseFilters } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/filters/http-filter';
 import { IncomeDto, IncomeUpdateDto } from './income.dto';
-import { Income } from './income.interface';
+import { Income, IncomeFormated } from './income.interface';
 import { IncomeService } from './income.service';
+import { currencyFormatIntToString, currencyFormatStringToInt } from '../utils/currencyFormat';
+import { totalIncomeCalc } from '../utils/totalIncomeCalc';
 
 @Controller('income')
 export class IncomeController {
@@ -10,35 +12,41 @@ export class IncomeController {
 
     @Get(':id')
     @UseFilters(new HttpExceptionFilter())
-    getIncome(@Param() params): Promise<Income[]> {
-        const id = parseInt(params.id);
-        return this.incomeService.getIncomesByUserId(id);
-    }
-
-    @Get('total/:id')
-    @UseFilters(new HttpExceptionFilter())
     async getTotalIncome(@Param() params): Promise<any>{
         const id = parseInt(params.id);
         const result = await this.incomeService.getIncomesByUserId(id);
         if (!result) return { status: 'ok', message: 'no income has added'};
 
-        const values = result.map(element => {
-            return element.value;
-        });
+        const totalIncome = totalIncomeCalc(result);
 
-        const totalIncome = values.reduce((a, b) => { return a + b }, 0);
+        const resultLIstFormated = result.map((element) => { return {
+            ...element,
+            value: currencyFormatIntToString({value: element.value })
+        }}); 
 
         return {
             status: 'ok',
-            tatalIncome: totalIncome,
-            incomeList: result,
+            tatalIncome: currencyFormatIntToString({value: totalIncome }),
+            incomeList: resultLIstFormated,
         }
     }
 
     @Post()
     @UseFilters(new HttpExceptionFilter())
-    create(@Body() income: IncomeDto): Promise<Income> {
-        return this.incomeService.create(income)
+    async create(@Body() income: IncomeDto): Promise<IncomeFormated> {
+        const formatedIncome = {
+            ...income,
+            value: currencyFormatStringToInt({ value: income.value })
+        };
+        const incomeCreated = await this.incomeService.create(formatedIncome);
+        return {
+            description: incomeCreated.description,
+            value: currencyFormatIntToString({ value: incomeCreated.value }),
+            userId: incomeCreated.userId,
+            monthId: incomeCreated.userId,
+            updatedAt: incomeCreated.updatedAt,
+            isValid: incomeCreated.isValid
+        };
     }
 
     @Delete(':id')
@@ -51,7 +59,12 @@ export class IncomeController {
     @Put()
     @UseFilters(new HttpExceptionFilter())
     update(@Body() income: IncomeUpdateDto): Promise<Income> {
-        return this.incomeService.update(income)
+        return this.incomeService.update({ 
+            ...income, 
+            value: currencyFormatStringToInt({ 
+                value: income.value 
+            })
+        });
     }
 
 }

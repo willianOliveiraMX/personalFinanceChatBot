@@ -10,3 +10,12 @@ export interface Income {
     createdAt?: Timestamp,
     isValid?: boolean,
 }
+
+export interface IncomeFormated {
+    description?: string,
+    value?: string,
+    userId?: number,
+    monthId?: number,
+    updatedAt?: Timestamp,
+    isValid?: boolean,
+}

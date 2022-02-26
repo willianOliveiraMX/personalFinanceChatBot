@@ -1,12 +1,13 @@
-import { IsInt, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class IncomeDto {
 
   @IsNotEmpty()
   description: string;
 
-  @IsInt()
-  value: number;
+  @IsNotEmpty()
+  @IsString()
+  value: string;
 
   @IsInt()
   userId: number;
@@ -18,9 +19,10 @@ export class IncomeDto {
 export class IncomeUpdateDto {
 
   @IsOptional()
+  @IsString()
   description: string;
 
   @IsOptional()
-  @IsInt()
-  value: number;
+  @IsString()
+  value: string;
 }
