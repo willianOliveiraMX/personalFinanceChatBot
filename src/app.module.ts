@@ -6,6 +6,8 @@ import { MonthReferenceEntity } from './monthreference/monthreference.entity';
 import { MonthreferenceModule } from './monthreference/monthreference.module';
 import { IncomeModule } from './income/income.module';
 import { IncomeEntity } from './income/income.entity';
+import { DebtModule } from './debt/debt.module';
+import { debtEntity } from './debt/debt.entity';
 
 @Module({
   imports: [
@@ -16,7 +18,12 @@ import { IncomeEntity } from './income/income.entity';
       username: 'postgres',
       password: '123',
       database: 'financeData',
-      entities: [User, MonthReferenceEntity, IncomeEntity],
+      entities: [
+        User, 
+        MonthReferenceEntity, 
+        IncomeEntity, 
+        debtEntity
+      ],
       migrations: ['migration/*.js'],
       cli: {
         migrationsDir: 'src/migration',
@@ -25,6 +32,7 @@ import { IncomeEntity } from './income/income.entity';
     UserModule,
     MonthreferenceModule,
     IncomeModule,
+    DebtModule,
   ],
 })
 export class AppModule {}

@@ -93,6 +93,10 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             type: 'int',
           },
           {
+            name: 'isalreadypay',
+            type: 'boolean'
+          },
+          {
             name: 'updatedAt',
             type: 'timestamp',
             isNullable: true,
