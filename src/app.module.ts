@@ -8,6 +8,8 @@ import { IncomeModule } from './income/income.module';
 import { IncomeEntity } from './income/income.entity';
 import { DebtModule } from './debt/debt.module';
 import { debtEntity } from './debt/debt.entity';
+import { DebtGroupModule } from './debt-group/debt-group.module';
+import { debtGroupEntity } from './debt-group/debt-group.entity';
 
 @Module({
   imports: [
@@ -22,7 +24,8 @@ import { debtEntity } from './debt/debt.entity';
         User, 
         MonthReferenceEntity, 
         IncomeEntity, 
-        debtEntity
+        debtEntity,
+        debtGroupEntity,
       ],
       migrations: ['migration/*.js'],
       cli: {
@@ -33,6 +36,7 @@ import { debtEntity } from './debt/debt.entity';
     MonthreferenceModule,
     IncomeModule,
     DebtModule,
+    DebtGroupModule,
   ],
 })
 export class AppModule {}

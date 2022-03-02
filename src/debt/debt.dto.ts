@@ -1,5 +1,4 @@
-import { IsBoolean, IsDate, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { Timestamp } from 'typeorm';
+import { IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class debtDto {
 
