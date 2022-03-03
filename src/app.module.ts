@@ -10,6 +10,7 @@ import { DebtModule } from './debt/debt.module';
 import { debtEntity } from './debt/debt.entity';
 import { DebtGroupModule } from './debt-group/debt-group.module';
 import { debtGroupEntity } from './debt-group/debt-group.entity';
+import { BalanceModule } from './balance/balance.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { debtGroupEntity } from './debt-group/debt-group.entity';
     IncomeModule,
     DebtModule,
     DebtGroupModule,
+    BalanceModule,
   ],
 })
 export class AppModule {}

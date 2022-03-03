@@ -27,6 +27,19 @@ export class DebtService {
         });
     }
 
+    getDebtByUserIdAndMonthId(userId: number, monthId: number): Promise<Debt[]> {
+        return this.debtRepository.find({ 
+            where: { 
+                userId, 
+                monthId, 
+                isValid: true,
+            }, 
+            order: {
+                'id': 'ASC'
+            }
+        });
+    }
+
     deleteDebtById(id: number) {
         return this.debtRepository.update(id, { isValid: false })
     }

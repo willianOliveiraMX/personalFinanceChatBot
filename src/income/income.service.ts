@@ -21,6 +21,18 @@ export class IncomeService {
         )
     }
 
+    getIncomesByUserIdAndMonthId(userId: number, monthId: number): Promise<Income[]> {
+        return this.incomeRepository.find(
+            {
+                where: {
+                   userId, 
+                   monthId,
+                   isValid: true
+                }
+            }
+        )
+    }
+
     create(Income: Income): Promise<Income> {
         return this.incomeRepository.save({...Income, updatedAt: new Date() })
     }
