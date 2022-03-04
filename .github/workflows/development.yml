@@ -9,6 +9,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+        HOST_URL: ${{ secrets.HOST_URL }}
+        PORT_DATABASE: ${{ secrets.PORT_DATABASE }}
+        USER_DATABASE: ${{ secrets.USER_DATABASE }}
+        PASSWORD_DATABASE: ${{ secrets.PASSWORD_DATABASE }}
+        DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+
     steps:
       - name: Development Code
         uses: actions/checkout@v2
