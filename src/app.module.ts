@@ -11,16 +11,17 @@ import { debtEntity } from './debt/debt.entity';
 import { DebtGroupModule } from './debt-group/debt-group.module';
 import { debtGroupEntity } from './debt-group/debt-group.entity';
 import { BalanceModule } from './balance/balance.module';
+require('dotenv').config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '123',
-      database: 'financeData',
+      host: process.env.HOST_URL || 'localhost',
+      port: parseInt(process.env.PORT_DATABASE) || 5432,
+      username: process.env.USER_DATABASE || 'postgres',
+      password: process.env.PASSWORD_DATABASE || '123',
+      database: process.env.DATABASE_NAME || 'financeData',
       entities: [
         User, 
         MonthReferenceEntity, 
