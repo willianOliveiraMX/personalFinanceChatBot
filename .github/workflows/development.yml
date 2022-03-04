@@ -15,6 +15,7 @@ jobs:
         USER_DATABASE: ${{ secrets.USER_DATABASE }}
         PASSWORD_DATABASE: ${{ secrets.PASSWORD_DATABASE }}
         DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+        ENV_STAGING: ${{ secrets.ENV_STAGING }}
 
     steps:
       - name: Development Code
