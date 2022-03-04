@@ -8,6 +8,16 @@ module.exports = {
    "username": process.env.USER_DATABASE || "postgres",
    "password": process.env.PASSWORD_DATABASE || "123",
    "database": process.env.DATABASE_NAME || "financeData",
+   ...(process.env.ENV_STAGING && (
+      {
+        "ssl": true,
+        "extra": {
+          "ssl": {
+            "rejectUnauthorized": false
+          }
+        }
+      }
+    )),
    "logging": false,
    "entities": ["src/entity/*.ts", "./build/src/entity/*.js", "src/*.entity.ts"],
    "migrations": [
