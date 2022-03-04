@@ -25,4 +25,4 @@ jobs:
           args: deploy --dir=build --prod
           heroku_api_key: ${{ secrets.HEROKU_KEY }}
           heroku_app_name: 'gilberto-finance'
-          heroku_email: 'willian_oliveira@outlook.com
+          heroku_email: 'willian_oliveira@outlook.com'
