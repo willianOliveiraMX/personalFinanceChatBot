@@ -11,6 +11,8 @@ import { debtEntity } from './debt/debt.entity';
 import { DebtGroupModule } from './debt-group/debt-group.module';
 import { debtGroupEntity } from './debt-group/debt-group.entity';
 import { BalanceModule } from './balance/balance.module';
+import { TempUserInfo } from './user/tempUserInfo/tempUserInfo.entity';
+import { TempUserInfoModule } from './user/tempUserInfo/tempUserInfo.module';
 require('dotenv').config();
 
 @Module({
@@ -38,6 +40,7 @@ require('dotenv').config();
         IncomeEntity, 
         debtEntity,
         debtGroupEntity,
+        TempUserInfo,
       ],
       migrations: ['migration/*.js'],
       cli: {
@@ -50,6 +53,7 @@ require('dotenv').config();
     DebtModule,
     DebtGroupModule,
     BalanceModule,
+    TempUserInfoModule,
   ],
 })
 export class AppModule {}

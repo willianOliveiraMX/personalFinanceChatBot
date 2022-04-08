@@ -12,8 +12,14 @@ export class DebtController {
     @UseFilters(new HttpExceptionFilter())
     async create(@Body() debtDto: debtDto) {
         return this.debtService.create({
-            ...debtDto, 
-            value: currencyFormatStringToInt({ value: debtDto.value }) 
+            value: currencyFormatStringToInt({ value: debtDto.value }),
+            userId: parseInt(debtDto.userId),
+            monthId: parseInt(debtDto.monthId),
+            groupId: parseInt(debtDto.groupId),
+            description: debtDto.description,
+            installmentTotal: parseInt(debtDto.installmentTotal),
+            dateToPay: debtDto.dateToPay,
+            isalreadypay: Boolean(debtDto.isalreadypay),
         });
     }
 

@@ -6,30 +6,30 @@ export class debtDto {
   @IsNotEmpty()
   description: string;
 
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  userId: number;
+  userId: string;
 
   @IsNotEmpty()
   @IsString()
   value: string;
 
-  @IsInt()
-  installmentTotal: number;
+  @IsString()
+  installmentTotal: string;
 
   @IsString()
   dateToPay: string;
 
-  @IsBoolean()
+  @IsString()
   isalreadypay: boolean;
 
   @IsNotEmpty()
-  @IsInt()
-  groupId: number;
+  @IsString()
+  groupId: string;
  
   @IsNotEmpty()
-  @IsInt()
-  monthId: number;
+  @IsString()
+  monthId: string;
 }
 
 export class debtDtoUpdate {

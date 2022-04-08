@@ -15,6 +15,10 @@ export class UserService {
     return this.userRepository.findOne(id, { where: { isValid: true } });
   }
 
+  findOneByToken(token: string): Promise<UserInterface> {
+    return this.userRepository.findOne({ where: { token, isValid: true } });
+  }
+
   create(User: UserInterface): any{
     const result = this.userRepository.save(User)
     .catch((e) => {
