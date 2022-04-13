@@ -42,10 +42,10 @@ export class IncomeController {
         return {
             description: incomeCreated.description,
             value: currencyFormatIntToString({ value: incomeCreated.value }),
-            userId: incomeCreated.userId,
-            monthId: incomeCreated.userId,
-            updatedAt: incomeCreated.updatedAt,
-            isValid: incomeCreated.isValid
+            userid: incomeCreated.userid,
+            monthid: incomeCreated.userid,
+            updatedat: incomeCreated.updatedat,
+            isvalid: incomeCreated.isvalid
         };
     }
 

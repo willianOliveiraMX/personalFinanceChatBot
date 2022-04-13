@@ -12,14 +12,15 @@ export class UserService {
   ) {}
 
   findOne(id: number): Promise<UserInterface> {
-    return this.userRepository.findOne(id, { where: { isValid: true } });
+    return this.userRepository.findOne(id, { where: { isvalid: true } });
   }
 
   findOneByToken(token: string): Promise<UserInterface> {
-    return this.userRepository.findOne({ where: { token, isValid: true } });
+    return this.userRepository.findOne({ where: { token, isvalid: true } });
   }
 
   create(User: UserInterface): any{
+    console.log(User);
     const result = this.userRepository.save(User)
     .catch((e) => {
       if (e.code === "23505") {
@@ -31,6 +32,7 @@ export class UserService {
           HttpStatus.CONFLICT,
         );
       } else {
+        console.log(e);
         throw new HttpException(
           {
             status: HttpStatus.BAD_REQUEST,
@@ -47,7 +49,7 @@ export class UserService {
   update(User: UserInterface): any{
     const result = this.userRepository.update(User.id, 
       {
-        updatedAt: new Date(),
+        updatedat: new Date(),
         email: User.email,
         token: User.token
       });
@@ -55,6 +57,6 @@ export class UserService {
   }
 
   deleteOne(id: number): any{
-    return this.userRepository.update(id, { isValid: false })
+    return this.userRepository.update(id, { isvalid: false })
   }
 }

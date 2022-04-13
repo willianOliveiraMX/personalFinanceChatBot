@@ -7,12 +7,12 @@ export class BalanceService {
 
     constructor(private debtService: DebtService, private incomeService: IncomeService) {}
 
-    getDebtByUserAndMonth(userId: number, monthId: number) {
-        return this.debtService.getDebtByUserIdAndMonthId(userId, monthId);
+    getDebtByUserAndMonth(userid: number, monthid: number) {
+        return this.debtService.getDebtByUserIdAndMonthId(userid, monthid);
     }
 
-    getIncomeByUserIdAndMonth(userId: number, monthId: number) {
-        return this.incomeService.getIncomesByUserIdAndMonthId(userId, monthId);
+    getIncomeByUserIdAndMonth(userid: number, monthid: number) {
+        return this.incomeService.getIncomesByUserIdAndMonthId(userid, monthid);
     }
 
 }

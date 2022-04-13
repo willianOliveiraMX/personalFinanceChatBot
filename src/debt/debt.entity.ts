@@ -6,7 +6,7 @@ export class debtEntity {
   id: number;
 
   @Column()
-  userId: number;
+  userid: number;
 
   @Column()
   value: number;
@@ -27,17 +27,17 @@ export class debtEntity {
   isalreadypay: boolean;
 
   @Column()
-  groupId: number;
+  groupid: number;
   
   @Column()
-  monthId: number;
+  monthid: number;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  createdAt: string;
+  createdat: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  updatedAt: string;
+  updatedat: string;
 
   @Column({ default: true })
-  isValid: boolean;
+  isvalid: boolean;
 }

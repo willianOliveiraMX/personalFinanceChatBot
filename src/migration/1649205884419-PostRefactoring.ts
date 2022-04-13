@@ -23,17 +23,17 @@ export class PostRefactoring1649205884419 implements MigrationInterface {
                         isUnique: true,
                     },
                     {
-                        name: 'updatedAt',
+                        name: 'updatedat',
                         type: 'timestamp',
                         isNullable: true,
                     },
                     {
-                        name: 'createdAt',
+                        name: 'createdat',
                         type: 'timestamp',
                         default: 'now()',
                     },
                     {
-                        name: 'isValid',
+                        name: 'isvalid',
                         type: 'boolean',
                         default: true,
                     },
@@ -44,7 +44,7 @@ export class PostRefactoring1649205884419 implements MigrationInterface {
 
         await queryRunner.createTable(
             new Table({
-                name: 'tempUserInfo',
+                name: 'temp_user_info',
                 columns: [
                     {
                         name: 'id',
@@ -53,17 +53,17 @@ export class PostRefactoring1649205884419 implements MigrationInterface {
                         isGenerated: true,
                     },
                     {
-                        name: 'userTempData',
+                        name: 'usertempdata',
                         type: 'json',
                         isNullable: true,
                     },
                     {
-                        name: 'updatedAt',
+                        name: 'updatedat',
                         type: 'timestamp',
                         isNullable: true,
                     },
                     {
-                        name: 'createdAt',
+                        name: 'createdat',
                         type: 'timestamp',
                         default: 'now()',
                     },
@@ -74,7 +74,7 @@ export class PostRefactoring1649205884419 implements MigrationInterface {
 
         await queryRunner.createTable(
             new Table({
-                name: 'userStage',
+                name: 'user_stage',
                 columns: [
                     {
                         name: 'id',
@@ -83,15 +83,15 @@ export class PostRefactoring1649205884419 implements MigrationInterface {
                         isGenerated: true,
                     },
                     {
-                        name: 'stageId',
+                        name: 'stageid',
                         type: 'int',
                     },
                     {
-                        name: 'tempUserId',
+                        name: 'temp_userid',
                         type: 'int',
                     },
                     {
-                        name: 'tokenChatId',
+                        name: 'token_chatid',
                         type: 'varchar',
                         isUnique: true,
                     },
@@ -101,27 +101,27 @@ export class PostRefactoring1649205884419 implements MigrationInterface {
         );
 
         await queryRunner.createForeignKey(
-            'userStage',
+            'user_stage',
             new TableForeignKey({
-              columnNames: ['stageId'],
+              columnNames: ['stageid'],
               referencedColumnNames: ['id'],
               referencedTableName: 'stage',
             }),
         );
 
         await queryRunner.createForeignKey(
-            'userStage',
+            'user_stage',
             new TableForeignKey({
-              columnNames: ['tempUserId'],
+              columnNames: ['temp_userid'],
               referencedColumnNames: ['id'],
-              referencedTableName: 'tempUserInfo',
+              referencedTableName: 'temp_user_info',
             }),
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('stage');
-        await queryRunner.dropTable('userStage');
+        await queryRunner.dropTable('user_stage');
     }
 
 }

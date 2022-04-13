@@ -4,7 +4,7 @@ export interface UserInterface {
   id?: number,
   email?: string,
   token?: string,
-  updatedAt?: Timestamp,
-  createdAt?: Timestamp,
-  isValid?: boolean,
+  updatedat?: Timestamp,
+  createdat?: Timestamp,
+  isvalid?: boolean,
 };

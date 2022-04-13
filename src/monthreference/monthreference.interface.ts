@@ -1,10 +1,10 @@
 import { Timestamp } from "typeorm";
 
-export interface monthreference {
+export interface month_reference {
     id?: number,
     year?: string,
     month?: string,
     updateAt?: Timestamp,
-    createdAt?: Timestamp,
-    isValid?: boolean,
+    createdat?: Timestamp,
+    isvalid?: boolean,
 }

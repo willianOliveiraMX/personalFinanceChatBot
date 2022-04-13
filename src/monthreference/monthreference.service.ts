@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MonthReferenceEntity } from './monthreference.entity';
-import { monthreference } from './monthreference.interface';
+import { month_reference } from './monthreference.interface';
 import { monthsName } from './utils';
 
 @Injectable()
 export class MonthreferenceService {
     constructor(
         @InjectRepository(MonthReferenceEntity)
-        private readonly monthReferenceRepository: Repository<monthreference>
+        private readonly monthReferenceRepository: Repository<month_reference>
     ){}
 
     async findByCurrentMonth() {
@@ -28,17 +28,17 @@ export class MonthreferenceService {
             year: result.year,
             month: monthsName[parseInt(result.month)],
             monthNumber: parseInt(result.month),
-            createdAt: result.createdAt
+            createdat: result.createdat
         }
     }
 
-    create(): Promise<monthreference> {
+    create(): Promise<month_reference> {
         const currentDate = new Date();
         return this.monthReferenceRepository.save({  
             year: `${currentDate.getFullYear()}`,
             month: `${currentDate.getMonth()}`,
-            updatedAt: currentDate,
-            createdAt: currentDate,
+            updatedat: currentDate,
+            createdat: currentDate,
         });
     }
 }

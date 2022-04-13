@@ -10,10 +10,10 @@ export class IncomeDto {
   value: string;
 
   @IsInt()
-  userId: number;
+  userid: number;
 
   @IsInt()
-  monthId: number;
+  monthid: number;
 }
 
 export class IncomeUpdateDto {

@@ -1,9 +1,9 @@
 import { Timestamp } from "typeorm";
 
-export interface DebtGroup {
+export interface Debt_group {
     id?: number,
     description?: string,
-    updatedAt?: Timestamp,
-    createdAt?: Timestamp,
-    isValid?: boolean,
+    updatedat?: Timestamp,
+    createdat?: Timestamp,
+    isvalid?: boolean,
 }

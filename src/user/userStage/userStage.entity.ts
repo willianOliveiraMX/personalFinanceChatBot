@@ -1,16 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { StageEntity } from './stage.entity';
 
-@Entity("userStage")
-export class UserStage {
+@Entity("user_stage")
+export class User_stage {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column({ type: "int" })
-  stageId: number;
+  stageid: number;
 
   @Column({ type: "int" })
-  tempUserId: number;
+  temp_userid: number;
 
   @Column({ type: "varchar" })
-  tokenChatId: String;
+  token_chatid: String;
 }

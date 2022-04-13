@@ -7,7 +7,7 @@ module.exports = {
    "port": parseInt(process.env.PORT_DATABASE) || 5432,
    "username": process.env.USER_DATABASE || "postgres",
    "password": process.env.PASSWORD_DATABASE || "123",
-   "database": process.env.DATABASE_NAME || "financeData",
+   "database": process.env.DATABASE_NAME || "personal_finance",
    ...(process.env.ENV_STAGING && (
       {
         "ssl": true,

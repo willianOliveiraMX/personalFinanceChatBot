@@ -15,10 +15,15 @@ import { TempUserService } from './tempUserInfo/tempUserInfo.service';
 import { UserInterface } from './user.interface';
 import { HttpExceptionFilter } from '../filters/http-filter';
 import { UserDto } from './user.dto';
+import { UserStageService } from './userStage/userStage.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService, private tempUserService: TempUserService) {}
+  constructor(
+    private userService: UserService, 
+    private tempUserService: TempUserService,
+    private userStageService: UserStageService
+  ) {}
 
   @Get(':id')
   @UseFilters(new HttpExceptionFilter())
@@ -38,7 +43,7 @@ export class UserController {
 
   @Get('token/:token')
   @UseFilters(new HttpExceptionFilter())
-  getUserByToken(@Param() params): Promise<UserInterface> {
+  async getUserByToken(@Param() params): Promise<UserInterface> {
     const token = params.token;
     if(!token) {
       throw new HttpException(
@@ -49,20 +54,43 @@ export class UserController {
         HttpStatus.BAD_REQUEST,
       );
     }
-    return this.userService.findOneByToken(token);
+    const result = this.userService.findOneByToken(token);
+    if (!await result) {
+      return this.userStageService.getUserStageByToken(params.token);
+    }
+    return result;
   }
 
   @Post()
   @UseFilters(new HttpExceptionFilter())
-  create(@Body() userDto: UserDto): Promise<UserInterface> {
-    if (!userDto.email) {
-      return this.tempUserService.create({ 
-        userTempData: {
-          tokenChatId: userDto.token
+  async create(@Body() userDto: UserDto): Promise<any> {
+    if (!userDto.email){
+      const userResultByToken = await this.userService.findOneByToken(userDto.token);
+      if (userResultByToken?.id) {
+        return {
+          status: HttpStatus.OK,
+          description: "User with this token is already add.",
+          user: userResultByToken
         }
-      });
-    };
+      }
+      const userStageItem = await this.userStageService.getUserStageByToken(userDto.token);
 
+      if (!userStageItem) {
+        const stages = await this.userStageService.getStages();
+        const USER_DONT_HAVE_EMAIL = stages.find(el => el.stageidentifier === "USER_DONT_HAVE_EMAIL");
+        const tempUserItem = await this.tempUserService.create({
+          usertempdata: {
+            token_chatid: userDto.token
+          }
+        });
+        return this.userStageService.create({
+          stageid: USER_DONT_HAVE_EMAIL?.id || 1,
+          temp_userid: tempUserItem.id,
+          token_chatid: userDto.token
+        });
+      }
+        return userStageItem;
+      }
     return this.userService.create(userDto)
   }
 

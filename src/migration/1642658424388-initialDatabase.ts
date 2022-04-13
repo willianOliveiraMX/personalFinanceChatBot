@@ -9,7 +9,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'user',
+        name: 'finance_user',
         columns: [
           {
             name: 'id',
@@ -28,17 +28,17 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: 'updatedAt',
+            name: 'updatedat',
             type: 'timestamp',
             isNullable: true,
           },
           {
-            name: 'createdAt',
+            name: 'createdat',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'isValid',
+            name: 'isvalid',
             type: 'boolean',
             default: true,
           },
@@ -59,7 +59,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: 'userId',
+            name: 'userid',
             type: 'int',
           },
           {
@@ -85,11 +85,11 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             type: 'timestamp',
           },
           {
-            name: 'monthId',
+            name: 'monthid',
             type: 'int',
           },
           {
-            name: 'groupId',
+            name: 'groupid',
             type: 'int',
           },
           {
@@ -97,17 +97,17 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             type: 'boolean'
           },
           {
-            name: 'updatedAt',
+            name: 'updatedat',
             type: 'timestamp',
             isNullable: true,
           },
           {
-            name: 'createdAt',
+            name: 'createdat',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'isValid',
+            name: 'isvalid',
             type: 'boolean',
             default: true,
           },
@@ -118,9 +118,9 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'debt',
       new TableForeignKey({
-        columnNames: ['userId'],
+        columnNames: ['userid'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'user',
+        referencedTableName: 'finance_user',
         onDelete: 'CASCADE',
       }),
     );
@@ -136,7 +136,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             isGenerated: true,
           },
           {
-            name: 'userId',
+            name: 'userid',
             type: 'int',
           },
           {
@@ -148,21 +148,21 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             type: 'integer',
           },
           {
-            name: 'monthId',
+            name: 'monthid',
             type: 'integer',
           },
           {
-            name: 'updatedAt',
+            name: 'updatedat',
             type: 'timestamp',
             isNullable: true,
           },
           {
-            name: 'createdAt',
+            name: 'createdat',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'isValid',
+            name: 'isvalid',
             type: 'boolean',
             default: true,
           },
@@ -174,16 +174,16 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'income',
       new TableForeignKey({
-        columnNames: ['userId'],
+        columnNames: ['userid'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'user',
+        referencedTableName: 'finance_user',
         onDelete: 'CASCADE',
       }),
     );
 
     await queryRunner.createTable(
       new Table({
-        name: 'monthReference',
+        name: 'month_reference',
         columns: [
           {
             name: 'id',
@@ -200,17 +200,17 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'updatedAt',
+            name: 'updatedat',
             type: 'timestamp',
             isNullable: true,
           },
           {
-            name: 'createdAt',
+            name: 'createdat',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'isValid',
+            name: 'isvalid',
             type: 'boolean',
             default: true,
           },
@@ -222,9 +222,9 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'income',
       new TableForeignKey({
-        columnNames: ['monthId'],
+        columnNames: ['monthid'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'monthReference',
+        referencedTableName: 'month_reference',
         onDelete: 'CASCADE',
       }),
     );
@@ -232,9 +232,9 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'debt',
       new TableForeignKey({
-        columnNames: ['monthId'],
+        columnNames: ['monthid'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'monthReference',
+        referencedTableName: 'month_reference',
         onDelete: 'CASCADE',
       }),
     );
@@ -250,7 +250,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             isGenerated: true,
           },
           {
-            name: 'userId',
+            name: 'userid',
             type: 'int',
             isUnique: true,
           },
@@ -259,22 +259,22 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             type: 'integer',
           },
           {
-            name: 'monthId',
+            name: 'monthid',
             type: 'integer',
             isUnique: true,
           },
           {
-            name: 'updatedAt',
+            name: 'updatedat',
             type: 'timestamp',
             isNullable: true,
           },
           {
-            name: 'createdAt',
+            name: 'createdat',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'isValid',
+            name: 'isvalid',
             type: 'boolean',
             default: true,
           },
@@ -286,9 +286,9 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'balance',
       new TableForeignKey({
-        columnNames: ['userId'],
+        columnNames: ['userid'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'user',
+        referencedTableName: 'finance_user',
         onDelete: 'CASCADE',
       }),
     );
@@ -296,16 +296,16 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'balance',
       new TableForeignKey({
-        columnNames: ['monthId'],
+        columnNames: ['monthid'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'monthReference',
+        referencedTableName: 'month_reference',
         onDelete: 'CASCADE',
       }),
     );
 
     await queryRunner.createTable(
       new Table({
-        name: 'debtGroup',
+        name: 'debt_group',
         columns: [
           {
             name: 'id',
@@ -318,17 +318,17 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'updatedAt',
+            name: 'updatedat',
             type: 'timestamp',
             isNullable: true,
           },
           {
-            name: 'createdAt',
+            name: 'createdat',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'isValid',
+            name: 'isvalid',
             type: 'boolean',
             default: true,
           },
@@ -340,9 +340,9 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'debt',
       new TableForeignKey({
-        columnNames: ['groupId'],
+        columnNames: ['groupid'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'debtGroup',
+        referencedTableName: 'debt_group',
         onDelete: 'CASCADE',
       }),
     );
@@ -351,7 +351,7 @@ export class initialDatabase1642658424388 implements MigrationInterface {
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('debt');
     await queryRunner.dropTable('income');
-    await queryRunner.dropTable('monthReference');
-    await queryRunner.dropTable('user');
+    await queryRunner.dropTable('month_reference');
+    await queryRunner.dropTable('finance_user');
   }
 }

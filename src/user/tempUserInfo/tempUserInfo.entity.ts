@@ -1,16 +1,16 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity("tempUserInfo")
-export class TempUserInfo {
+@Entity("temp_user_info")
+export class Temp_user_info {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column({ type: "json" })
-  userTempData: JSON;
+  usertempdata: JSON;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  createdAt: string;
+  createdat: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  updatedAt: string;
+  updatedat: string;
 }

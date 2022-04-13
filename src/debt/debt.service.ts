@@ -12,13 +12,13 @@ export class DebtService {
     ){}
 
     create(Debt: Debt): any {
-        return this.debtRepository.save({...Debt, updatedAt: new Date() });
+        return this.debtRepository.save({...Debt, updatedat: new Date() });
     }
 
-    getDebtByUserId(userId: number, pageNumber: number): Promise<Debt[]> {
+    getDebtByUserId(userid: number, pageNumber: number): Promise<Debt[]> {
         const skip = pageNumber === 1 ? 0 : ((pageNumber -1) * 5); 
         return this.debtRepository.find({ 
-            where: { userId, isValid: true}, 
+            where: { userid, isvalid: true}, 
             order: {
                 'id': 'ASC'
             },
@@ -27,12 +27,12 @@ export class DebtService {
         });
     }
 
-    getDebtByUserIdAndMonthId(userId: number, monthId: number): Promise<Debt[]> {
+    getDebtByUserIdAndMonthId(userid: number, monthid: number): Promise<Debt[]> {
         return this.debtRepository.find({ 
             where: { 
-                userId, 
-                monthId, 
-                isValid: true,
+                userid, 
+                monthid, 
+                isvalid: true,
             }, 
             order: {
                 'id': 'ASC'
@@ -41,19 +41,19 @@ export class DebtService {
     }
 
     deleteDebtById(id: number) {
-        return this.debtRepository.update(id, { isValid: false })
+        return this.debtRepository.update(id, { isvalid: false })
     }
 
     updateDebtById(debt: Debt) {
         return this.debtRepository.update(
             debt.id,
             {
-                updatedAt: new Date(),
+                updatedat: new Date(),
                 ...debt.description ? ({description: debt.description}) : null, 
                 ...debt.value && debt.value !== 0 ? ({value: debt.value}) : null,
-                ...debt.monthId ? ({monthId: debt.monthId}) : null,
+                ...debt.monthid ? ({monthid: debt.monthid}) : null,
                 ...debt.isalreadypay ? ({isalreadypay: debt.isalreadypay}) : null,
-                ...debt.groupId ? ({groupId: debt.groupId}) : null,
+                ...debt.groupid ? ({groupid: debt.groupid}) : null,
                 ...debt.dateToPay ? ({dateToPay: debt.dateToPay}) : null,
             }
         );

@@ -1,5 +1,5 @@
 export interface UserStageInterface {
-    stageId?: number,
-    tempUserId?: number,
-    tokenChatId?: string,
+    stageid?: number,
+    temp_userid?: number,
+    token_chatid?: string,
 }

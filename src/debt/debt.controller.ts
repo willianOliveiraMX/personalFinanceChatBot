@@ -13,9 +13,9 @@ export class DebtController {
     async create(@Body() debtDto: debtDto) {
         return this.debtService.create({
             value: currencyFormatStringToInt({ value: debtDto.value }),
-            userId: parseInt(debtDto.userId),
-            monthId: parseInt(debtDto.monthId),
-            groupId: parseInt(debtDto.groupId),
+            userid: parseInt(debtDto.userid),
+            monthid: parseInt(debtDto.monthid),
+            groupid: parseInt(debtDto.groupid),
             description: debtDto.description,
             installmentTotal: parseInt(debtDto.installmentTotal),
             dateToPay: debtDto.dateToPay,
@@ -23,13 +23,13 @@ export class DebtController {
         });
     }
 
-    @Get(':userId/page/:pageNumber')
+    @Get(':userid/page/:pageNumber')
     @UseFilters(new HttpExceptionFilter())
     async getDebtsByUserId(@Param() params) {
-        const userId = parseInt(params.userId);
+        const userid = parseInt(params.userid);
         const pageNumber = parseInt(params.pageNumber);
 
-        const result = await this.debtService.getDebtByUserId(userId, pageNumber);
+        const result = await this.debtService.getDebtByUserId(userid, pageNumber);
         const reultedFormated = result.map(element => {
             return {
                 ...element,

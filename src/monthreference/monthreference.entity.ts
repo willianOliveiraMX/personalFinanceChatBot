@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity("monthReference")
+@Entity("month_reference")
 export class MonthReferenceEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
@@ -12,11 +12,11 @@ export class MonthReferenceEntity {
   month: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  createdAt: string;
+  createdat: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  updatedAt: string;
+  updatedat: string;
 
   @Column({ default: true })
-  isValid: boolean;
+  isvalid: boolean;
 }

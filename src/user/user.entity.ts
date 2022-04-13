@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { IsEmail } from 'class-validator';
 
-@Entity("user")
+@Entity("finance_user")
 export class User {
   @PrimaryGeneratedColumn('increment')
   id: number;
@@ -14,11 +14,11 @@ export class User {
   token: string;
 
   @Column({ default: true })
-  isValid: boolean;
+  isvalid: boolean;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  createdAt: string;
+  createdat: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  updatedAt: string;
+  updatedat: string;
 }

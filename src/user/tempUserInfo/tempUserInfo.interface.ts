@@ -2,12 +2,12 @@
 import { Timestamp } from 'typeorm';
 
 interface UserTemp {
-  tokenChatId?: string,
+  token_chatid?: string,
 }
 
 export interface TempUserInterface {
   id?: number,
-  userTempData?: UserTemp,
-  updatedAt?: Timestamp,
-  createdAt?: Timestamp,
+  usertempdata?: UserTemp,
+  updatedat?: Timestamp,
+  createdat?: Timestamp,
 };

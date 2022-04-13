@@ -1,5 +1,5 @@
 import { Controller, Get, Post } from '@nestjs/common';
-import { monthreference } from './monthreference.interface';
+import { month_reference } from './monthreference.interface';
 import { MonthreferenceService } from './monthreference.service';
 
 @Controller('monthreference')

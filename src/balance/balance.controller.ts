@@ -9,14 +9,14 @@ export class BalanceController {
 
     constructor(private balanceService: BalanceService) {};
 
-    @Get(':userId/month/:monthId')
+    @Get(':userid/month/:monthid')
     @UseFilters(new HttpExceptionFilter())
     async getBalanceByUserId(@Param() params) {
-        const userId = parseInt(params.userId);
-        const monthId = parseInt(params.monthId);
+        const userid = parseInt(params.userid);
+        const monthid = parseInt(params.monthid);
 
-        const allDebt = await this.balanceService.getDebtByUserAndMonth(userId, monthId);
-        const allIncome = await this.balanceService.getIncomeByUserIdAndMonth(userId, monthId);
+        const allDebt = await this.balanceService.getDebtByUserAndMonth(userid, monthid);
+        const allIncome = await this.balanceService.getIncomeByUserIdAndMonth(userid, monthid);
 
         const resultCountIncome = totalIncomeCalc(allIncome);
         const resultCountDebt = totalDebtCalc(allDebt);
@@ -25,8 +25,8 @@ export class BalanceController {
             balance: currencyFormatIntToString({ value: resultCountIncome - resultCountDebt }), 
             debtTotal: currencyFormatIntToString({ value: resultCountDebt}),
             incomeTotal: currencyFormatIntToString({ value: resultCountIncome}),
-            monthId,
-            userId
+            monthid,
+            userid
         };
     }
 

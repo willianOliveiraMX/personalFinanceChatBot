@@ -6,7 +6,7 @@ export class IncomeEntity {
   id: number;
 
   @Column()
-  userId: number;
+  userid: number;
 
   @Column()
   description: string;
@@ -15,14 +15,14 @@ export class IncomeEntity {
   value: number;
 
   @Column()
-  monthId: number;
+  monthid: number;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  createdAt: string;
+  createdat: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  updatedAt: string;
+  updatedat: string;
 
   @Column({ default: true })
-  isValid: boolean;
+  isvalid: boolean;
 }

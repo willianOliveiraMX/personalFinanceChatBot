@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity("debtGroup")
+@Entity("debt_group")
 export class debtGroupEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
@@ -9,11 +9,11 @@ export class debtGroupEntity {
   description: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  createdAt: string;
+  createdat: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
-  updatedAt: string;
+  updatedat: string;
 
   @Column({ default: true })
-  isValid: boolean;
+  isvalid: boolean;
 }
