@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseFilters } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseFilters } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/filters/http-filter';
 import { currencyFormatIntToString, currencyFormatStringToInt } from 'src/utils/currencyFormat';
+import dateFormat from 'src/utils/dateFormat';
 import { debtDto, debtDtoUpdate } from './debt.dto';
 import { DebtService } from './debt.service';
 
@@ -25,15 +26,20 @@ export class DebtController {
 
     @Get(':userid/page/:pageNumber')
     @UseFilters(new HttpExceptionFilter())
-    async getDebtsByUserId(@Param() params) {
+    async getDebtsByUserId(@Param() params, @Query() query) {
         const userid = parseInt(params.userid);
         const pageNumber = parseInt(params.pageNumber);
+        const monthid = parseInt(query.monthid);
 
-        const result = await this.debtService.getDebtByUserId(userid, pageNumber);
+        const result = await this.debtService.getDebtByUserId(userid, pageNumber, monthid);
         const reultedFormated = result.map(element => {
+            console.log(dateFormat(element.dateToPay));
             return {
                 ...element,
-                value: currencyFormatIntToString({ value: element.value })
+                dateToPay: dateFormat(element.dateToPay),
+                value: currencyFormatIntToString({ value: element.value }),
+                createdat: dateFormat(`${element.createdat}`),
+                updatedat: dateFormat(`${element.updatedat}`),
             }
         });
         return reultedFormated;

@@ -15,10 +15,10 @@ export class DebtService {
         return this.debtRepository.save({...Debt, updatedat: new Date() });
     }
 
-    getDebtByUserId(userid: number, pageNumber: number): Promise<Debt[]> {
+    getDebtByUserId(userid: number, pageNumber: number, monthid: number | null): Promise<Debt[]> {
         const skip = pageNumber === 1 ? 0 : ((pageNumber -1) * 5); 
         return this.debtRepository.find({ 
-            where: { userid, isvalid: true}, 
+            where: { userid, ...(monthid ? {monthid: monthid} : null), isvalid: true}, 
             order: {
                 'id': 'ASC'
             },

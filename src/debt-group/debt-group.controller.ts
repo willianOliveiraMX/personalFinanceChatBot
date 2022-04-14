@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put, UseFilters } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/filters/http-filter';
+import dateFormat from 'src/utils/dateFormat';
 import { debtGroupDto, debtGroupUpdateDto } from './debt-group.dto';
 import { DebtGroupService } from './debt-group.service';
 
@@ -12,7 +13,14 @@ export class DebtGroupController {
     async getDebtsByUserId(@Param() params) {
         const id = parseInt(params.id);
 
-        return await this.debtGroupService.fetch(id);
+        const result = await this.debtGroupService.fetch(id);
+        if (!result) return null;
+
+        return {
+            ...result,
+            createdat: dateFormat(`${result.createdat}`),
+            updatedat: dateFormat(`${result.updatedat}`)
+        }
     }
 
     @Post()

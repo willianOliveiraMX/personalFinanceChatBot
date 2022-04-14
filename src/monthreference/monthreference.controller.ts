@@ -1,5 +1,5 @@
 import { Controller, Get, Post } from '@nestjs/common';
-import { month_reference } from './monthreference.interface';
+import { dateFormatMonthYear } from 'src/utils/dateFormat';
 import { MonthreferenceService } from './monthreference.service';
 
 @Controller('monthreference')
@@ -8,7 +8,13 @@ export class MonthreferenceController {
 
     @Get()
     async getMonthReference(): Promise<any>{
-        return this.monthreferece.findByCurrentMonth();
+        const result = await this.monthreferece.findByCurrentMonth();
+        if (!result) return null;
+
+        return {
+            ...result,
+            createdat: dateFormatMonthYear(`${result.createdat}`)
+        }
     }
 
     @Post()

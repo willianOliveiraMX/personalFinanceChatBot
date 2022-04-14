@@ -5,6 +5,7 @@ import { Income, IncomeFormated } from './income.interface';
 import { IncomeService } from './income.service';
 import { currencyFormatIntToString, currencyFormatStringToInt } from '../utils/currencyFormat';
 import { totalIncomeCalc } from '../utils/totalIncomeCalc';
+import dateFormat from 'src/utils/dateFormat';
 
 @Controller('income')
 export class IncomeController {
@@ -21,7 +22,9 @@ export class IncomeController {
 
         const resultLIstFormated = result.map((element) => { return {
             ...element,
-            value: currencyFormatIntToString({value: element.value })
+            value: currencyFormatIntToString({value: element.value }),
+            createdat: dateFormat(`${element.createdat}`),
+            updatedat: dateFormat(`${element.updatedat}`)
         }}); 
 
         return {
