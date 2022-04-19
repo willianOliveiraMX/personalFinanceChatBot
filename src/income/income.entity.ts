@@ -6,7 +6,7 @@ export class IncomeEntity {
   id: number;
 
   @Column()
-  userid: number;
+  token_chatid: string;
 
   @Column()
   description: string;

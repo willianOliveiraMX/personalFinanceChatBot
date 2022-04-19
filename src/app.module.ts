@@ -16,10 +16,12 @@ import { TempUserInfoModule } from './user/tempUserInfo/tempUserInfo.module';
 import { UserStageModule } from './user/userStage/userStage.module';
 import { User_stage } from './user/userStage/userStage.entity';
 import { StageEntity } from './user/userStage/stage.entity';
+import { ScheduleModule } from '@nestjs/schedule';
 require('dotenv').config();
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.HOST_URL || 'localhost',

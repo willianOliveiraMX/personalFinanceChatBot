@@ -2,7 +2,7 @@ import { Timestamp } from "typeorm";
 
 export interface Income {
     id?: number,
-    userid?: number,
+    token?: string,
     description?: string,
     value?: number,
     monthid?: number,
@@ -14,7 +14,7 @@ export interface Income {
 export interface IncomeFormated {
     description?: string,
     value?: string,
-    userid?: number,
+    token?: string,
     monthid?: number,
     updatedat?: Timestamp,
     isvalid?: boolean,

@@ -1,22 +1,28 @@
 import { Controller, Get, Param, UseFilters } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/filters/http-filter';
+import { MonthreferenceService } from 'src/monthreference/monthreference.service';
 import { currencyFormatIntToString } from 'src/utils/currencyFormat';
+import { dateFormatMonthYear } from 'src/utils/dateFormat';
 import { totalDebtCalc, totalIncomeCalc } from 'src/utils/totalIncomeCalc';
 import { BalanceService } from './balance.service';
 
 @Controller('balance')
 export class BalanceController {
 
-    constructor(private balanceService: BalanceService) {};
+    constructor(
+        private balanceService: BalanceService,
+        private monthreferenceService: MonthreferenceService
+    ) {};
 
-    @Get(':userid/month/:monthid')
+    @Get(':token/month/:monthid')
     @UseFilters(new HttpExceptionFilter())
     async getBalanceByUserId(@Param() params) {
-        const userid = parseInt(params.userid);
+        const token = params.token;
         const monthid = parseInt(params.monthid);
 
-        const allDebt = await this.balanceService.getDebtByUserAndMonth(userid, monthid);
-        const allIncome = await this.balanceService.getIncomeByUserIdAndMonth(userid, monthid);
+        const allDebt = await this.balanceService.getDebtByTokenAndMonth(token, monthid);
+        const allIncome = await this.balanceService.getIncomeByUserIdAndMonth(token, monthid);
+        const actualMonth = await this.monthreferenceService.findByCurrentMonth();
 
         const resultCountIncome = totalIncomeCalc(allIncome);
         const resultCountDebt = totalDebtCalc(allDebt);
@@ -25,8 +31,11 @@ export class BalanceController {
             balance: currencyFormatIntToString({ value: resultCountIncome - resultCountDebt }), 
             debtTotal: currencyFormatIntToString({ value: resultCountDebt}),
             incomeTotal: currencyFormatIntToString({ value: resultCountIncome}),
-            monthid,
-            userid
+            month:  { 
+                ...actualMonth, 
+                createdat: dateFormatMonthYear(`${actualMonth.createdat}`)
+            },
+            token
         };
     }
 

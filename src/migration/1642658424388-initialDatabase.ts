@@ -59,8 +59,8 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: 'userid',
-            type: 'int',
+            name: 'token_chatid',
+            type: 'varchar',
           },
           {
             name: 'description',
@@ -118,8 +118,8 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'debt',
       new TableForeignKey({
-        columnNames: ['userid'],
-        referencedColumnNames: ['id'],
+        columnNames: ['token_chatid'],
+        referencedColumnNames: ['token'],
         referencedTableName: 'finance_user',
         onDelete: 'CASCADE',
       }),
@@ -136,8 +136,8 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             isGenerated: true,
           },
           {
-            name: 'userid',
-            type: 'int',
+            name: 'token_chatid',
+            type: 'varchar',
           },
           {
             name: 'description',
@@ -174,8 +174,8 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'income',
       new TableForeignKey({
-        columnNames: ['userid'],
-        referencedColumnNames: ['id'],
+        columnNames: ['token_chatid'],
+        referencedColumnNames: ['token'],
         referencedTableName: 'finance_user',
         onDelete: 'CASCADE',
       }),
@@ -250,9 +250,8 @@ export class initialDatabase1642658424388 implements MigrationInterface {
             isGenerated: true,
           },
           {
-            name: 'userid',
-            type: 'int',
-            isUnique: true,
+            name: 'token_chatid',
+            type: 'varchar',
           },
           {
             name: 'value',
@@ -286,8 +285,8 @@ export class initialDatabase1642658424388 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'balance',
       new TableForeignKey({
-        columnNames: ['userid'],
-        referencedColumnNames: ['id'],
+        columnNames: ['token_chatid'],
+        referencedColumnNames: ['token'],
         referencedTableName: 'finance_user',
         onDelete: 'CASCADE',
       }),

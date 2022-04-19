@@ -6,21 +6,25 @@ import { IncomeService } from './income.service';
 import { currencyFormatIntToString, currencyFormatStringToInt } from '../utils/currencyFormat';
 import { totalIncomeCalc } from '../utils/totalIncomeCalc';
 import dateFormat from 'src/utils/dateFormat';
+import { MonthreferenceService } from 'src/monthreference/monthreference.service';
 
 @Controller('income')
 export class IncomeController {
-    constructor(private incomeService: IncomeService) {}
+    constructor(
+        private incomeService: IncomeService,
+        private monthreferenceService: MonthreferenceService,
+    ) {}
 
-    @Get(':id')
+    @Get(':token')
     @UseFilters(new HttpExceptionFilter())
     async getTotalIncome(@Param() params): Promise<any>{
-        const id = parseInt(params.id);
-        const result = await this.incomeService.getIncomesByUserId(id);
+        const token = params.token;
+        const result = await this.incomeService.getIncomesByUserToken(token);
         if (!result) return { status: 'ok', message: 'no income has added'};
 
         const totalIncome = totalIncomeCalc(result);
 
-        const resultLIstFormated = result.map((element) => { return {
+        const resultListFormated = result.map((element) => { return {
             ...element,
             value: currencyFormatIntToString({value: element.value }),
             createdat: dateFormat(`${element.createdat}`),
@@ -30,23 +34,24 @@ export class IncomeController {
         return {
             status: 'ok',
             tatalIncome: currencyFormatIntToString({value: totalIncome }),
-            incomeList: resultLIstFormated,
+            incomeList: resultListFormated,
         }
     }
 
     @Post()
     @UseFilters(new HttpExceptionFilter())
     async create(@Body() income: IncomeDto): Promise<IncomeFormated> {
+        const monthreference = await this.monthreferenceService.findByCurrentMonth();
         const formatedIncome = {
-            ...income,
+            token_chatid: income.token,
+            description: income.description,
+            monthid: monthreference.id,
             value: currencyFormatStringToInt({ value: income.value })
         };
         const incomeCreated = await this.incomeService.create(formatedIncome);
         return {
             description: incomeCreated.description,
             value: currencyFormatIntToString({ value: incomeCreated.value }),
-            userid: incomeCreated.userid,
-            monthid: incomeCreated.userid,
             updatedat: incomeCreated.updatedat,
             isvalid: incomeCreated.isvalid
         };

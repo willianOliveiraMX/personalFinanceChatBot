@@ -15,10 +15,10 @@ export class DebtService {
         return this.debtRepository.save({...Debt, updatedat: new Date() });
     }
 
-    getDebtByUserId(userid: number, pageNumber: number, monthid: number | null): Promise<Debt[]> {
+    getDebtByUserToken(token: string, pageNumber: number, monthid: number | null): Promise<Debt[]> {
         const skip = pageNumber === 1 ? 0 : ((pageNumber -1) * 5); 
         return this.debtRepository.find({ 
-            where: { userid, ...(monthid ? {monthid: monthid} : null), isvalid: true}, 
+            where: { token_chatid: token, ...(monthid ? {monthid: monthid} : null), isvalid: true}, 
             order: {
                 'id': 'ASC'
             },
@@ -27,10 +27,10 @@ export class DebtService {
         });
     }
 
-    getDebtByUserIdAndMonthId(userid: number, monthid: number): Promise<Debt[]> {
+    getDebtByTokenAndMonthId(token: string, monthid: number): Promise<Debt[]> {
         return this.debtRepository.find({ 
             where: { 
-                userid, 
+                token_chatid: token, 
                 monthid, 
                 isvalid: true,
             }, 

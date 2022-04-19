@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseFilters } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/filters/http-filter';
+import { MonthreferenceService } from 'src/monthreference/monthreference.service';
 import { currencyFormatIntToString, currencyFormatStringToInt } from 'src/utils/currencyFormat';
 import dateFormat from 'src/utils/dateFormat';
 import { debtDto, debtDtoUpdate } from './debt.dto';
@@ -7,15 +8,20 @@ import { DebtService } from './debt.service';
 
 @Controller('debt')
 export class DebtController {
-    constructor(private debtService: DebtService) {}
+    constructor(
+        private debtService: DebtService,
+        private monthreferenceService: MonthreferenceService,
+    ) {}
 
     @Post()
     @UseFilters(new HttpExceptionFilter())
     async create(@Body() debtDto: debtDto) {
+        const monthreference = await this.monthreferenceService.findByCurrentMonth();
+
         return this.debtService.create({
             value: currencyFormatStringToInt({ value: debtDto.value }),
-            userid: parseInt(debtDto.userid),
-            monthid: parseInt(debtDto.monthid),
+            token_chatid: debtDto.token,
+            monthid: monthreference.id,
             groupid: parseInt(debtDto.groupid),
             description: debtDto.description,
             installmentTotal: parseInt(debtDto.installmentTotal),
@@ -24,14 +30,14 @@ export class DebtController {
         });
     }
 
-    @Get(':userid/page/:pageNumber')
+    @Get(':token/page/:pageNumber')
     @UseFilters(new HttpExceptionFilter())
     async getDebtsByUserId(@Param() params, @Query() query) {
-        const userid = parseInt(params.userid);
+        const token = params.token;
         const pageNumber = parseInt(params.pageNumber);
         const monthid = parseInt(query.monthid);
 
-        const result = await this.debtService.getDebtByUserId(userid, pageNumber, monthid);
+        const result = await this.debtService.getDebtByUserToken(token, pageNumber, monthid);
         const reultedFormated = result.map(element => {
             console.log(dateFormat(element.dateToPay));
             return {

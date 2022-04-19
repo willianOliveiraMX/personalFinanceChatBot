@@ -11,21 +11,21 @@ export class IncomeService {
         private readonly incomeRepository: Repository<Income>
     ){}
 
-    getIncomesByUserId(userid: number): Promise<Income[]> {
+    getIncomesByUserToken(token: string): Promise<Income[]> {
         return this.incomeRepository.find(
             {
                 where: {
-                   userid: userid, isvalid: true
+                    token_chatid: token, isvalid: true
                 }
             }
         )
     }
 
-    getIncomesByUserIdAndMonthId(userid: number, monthid: number): Promise<Income[]> {
+    getIncomesByUserIdAndMonthId(token: string, monthid: number): Promise<Income[]> {
         return this.incomeRepository.find(
             {
                 where: {
-                   userid, 
+                   token_chatid: token, 
                    monthid,
                    isvalid: true
                 }

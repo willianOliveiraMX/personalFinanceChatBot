@@ -8,7 +8,7 @@ export class debtDto {
 
   @IsString()
   @IsNotEmpty()
-  userid: string;
+  token: string;
 
   @IsNotEmpty()
   @IsString()
@@ -26,10 +26,6 @@ export class debtDto {
   @IsNotEmpty()
   @IsString()
   groupid: string;
- 
-  @IsNotEmpty()
-  @IsString()
-  monthid: string;
 }
 
 export class debtDtoUpdate {

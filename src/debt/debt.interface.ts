@@ -2,7 +2,7 @@ import { Timestamp } from "typeorm";
 
 export interface Debt {
     id?: number,
-    userid?: number,
+    token_chatid?: string,
     monthid?: number,
     groupid?: number,
     value?: number,

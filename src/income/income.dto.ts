@@ -9,11 +9,9 @@ export class IncomeDto {
   @IsString()
   value: string;
 
-  @IsInt()
-  userid: number;
-
-  @IsInt()
-  monthid: number;
+  @IsNotEmpty()
+  @IsString()
+  token: string;
 }
 
 export class IncomeUpdateDto {

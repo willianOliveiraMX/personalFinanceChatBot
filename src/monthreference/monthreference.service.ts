@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Cron } from '@nestjs/schedule';
 import { Repository } from 'typeorm';
 import { MonthReferenceEntity } from './monthreference.entity';
 import { month_reference } from './monthreference.interface';
@@ -11,6 +12,11 @@ export class MonthreferenceService {
         @InjectRepository(MonthReferenceEntity)
         private readonly monthReferenceRepository: Repository<month_reference>
     ){}
+
+    @Cron('1 0 1-31 * *')
+    handleCron() {
+        this.create();
+    }
 
     async findByCurrentMonth() {
         const currentDate = new Date();
@@ -25,6 +31,7 @@ export class MonthreferenceService {
         if (!result) return null;
 
         return {
+            id: result.id,
             year: result.year,
             month: monthsName[parseInt(result.month)],
             monthNumber: parseInt(result.month),
