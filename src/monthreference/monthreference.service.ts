@@ -21,12 +21,13 @@ export class MonthreferenceService {
     async findByCurrentMonth() {
         const currentDate = new Date();
         const result = await this.monthReferenceRepository.findOne(
-            { 
-                where: { 
+            {
+                where: {
                     year: `${currentDate.getFullYear()}`,
                     month: `${currentDate.getMonth()}`,
-                } 
-            });
+                }
+            }
+        );
         
         if (!result) return null;
 
