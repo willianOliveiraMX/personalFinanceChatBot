@@ -14,7 +14,9 @@ export class MonthreferenceService {
     ){}
 
     @Cron('1 0 1-31 * *')
-    handleCron() {
+    async handleCron() {
+        const isAlreadyAdd = await this.findByCurrentMonth();
+        if (isAlreadyAdd) return;
         this.create();
     }
 
