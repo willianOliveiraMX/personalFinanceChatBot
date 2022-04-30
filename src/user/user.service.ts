@@ -20,7 +20,6 @@ export class UserService {
   }
 
   create(User: UserInterface): any{
-    console.log(User);
     const result = this.userRepository.save(User)
     .catch((e) => {
       if (e.code === "23505") {
@@ -32,7 +31,6 @@ export class UserService {
           HttpStatus.CONFLICT,
         );
       } else {
-        console.log(e);
         throw new HttpException(
           {
             status: HttpStatus.BAD_REQUEST,

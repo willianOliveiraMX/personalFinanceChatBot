@@ -37,8 +37,8 @@ export class IncomeService {
         return this.incomeRepository.save({...Income, updatedat: new Date() })
     }
 
-    delete(incomeId: number): any {
-        return this.incomeRepository.update(incomeId, { isvalid: false });
+    delete(incomeId: number, token: string): any {
+        return this.incomeRepository.update({ id: incomeId, token_chatid: token }, { isvalid: false });
     }
 
     update(income: Income): any {

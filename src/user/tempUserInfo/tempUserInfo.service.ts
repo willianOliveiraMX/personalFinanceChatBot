@@ -12,7 +12,6 @@ export class TempUserService {
     ) {}
 
     create(tempUser: TempUserInterface): any{
-        console.log(tempUser)
         return this.tempUserRepository.save(tempUser)
     }
 }

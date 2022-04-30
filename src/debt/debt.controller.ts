@@ -39,7 +39,6 @@ export class DebtController {
 
         const result = await this.debtService.getDebtByUserToken(token, pageNumber, monthid);
         const reultedFormated = result.map(element => {
-            console.log(dateFormat(element.dateToPay));
             return {
                 ...element,
                 dateToPay: dateFormat(element.dateToPay),
@@ -51,12 +50,13 @@ export class DebtController {
         return reultedFormated;
     }
 
-    @Delete('remove/:id')
+    @Delete('remove/:id/:token')
     @UseFilters(new HttpExceptionFilter())
     async deleteDebtById(@Param() params) {
         const debtId = parseInt(params.id);
+        const token = params.token;
 
-        return this.debtService.deleteDebtById(debtId);
+        return this.debtService.deleteDebtById(debtId, token);
     }
 
     @Put('edit/:id')

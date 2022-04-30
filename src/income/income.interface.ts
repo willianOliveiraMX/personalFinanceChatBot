@@ -2,7 +2,7 @@ import { Timestamp } from "typeorm";
 
 export interface Income {
     id?: number,
-    token?: string,
+    token_chatid?: string,
     description?: string,
     value?: number,
     monthid?: number,

@@ -75,7 +75,7 @@ export class UserController {
       }
       const userStageItem = await this.userStageService.getUserStageByToken(userDto.token);
 
-      if (!userStageItem) {
+      if (!userStageItem.length) {
         const stages = await this.userStageService.getStages();
         const USER_DONT_HAVE_EMAIL = stages.find(el => el.stageidentifier === "USER_DONT_HAVE_EMAIL");
         const tempUserItem = await this.tempUserService.create({

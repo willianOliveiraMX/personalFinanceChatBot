@@ -57,11 +57,13 @@ export class IncomeController {
         };
     }
 
-    @Delete(':id')
+    @Delete(':id/:token')
     @UseFilters(new HttpExceptionFilter())
     deleteIncome(@Param() params): Promise<Income[]> {
         const incomeId = parseInt(params.id);
-        return this.incomeService.delete(incomeId);
+        const token = params.token;
+
+        return this.incomeService.delete(incomeId, token);
     }
 
     @Put()

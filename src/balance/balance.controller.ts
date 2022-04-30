@@ -14,15 +14,15 @@ export class BalanceController {
         private monthreferenceService: MonthreferenceService
     ) {};
 
-    @Get(':token/month/:monthid')
+    @Get(':token')
     @UseFilters(new HttpExceptionFilter())
     async getBalanceByUserId(@Param() params) {
         const token = params.token;
-        const monthid = parseInt(params.monthid);
 
-        const allDebt = await this.balanceService.getDebtByTokenAndMonth(token, monthid);
-        const allIncome = await this.balanceService.getIncomeByUserIdAndMonth(token, monthid);
         const actualMonth = await this.monthreferenceService.findByCurrentMonth();
+
+        const allDebt = await this.balanceService.getDebtByTokenAndMonth(token, actualMonth.id);
+        const allIncome = await this.balanceService.getIncomeByUserIdAndMonth(token, actualMonth.id);
 
         const resultCountIncome = totalIncomeCalc(allIncome);
         const resultCountDebt = totalDebtCalc(allDebt);

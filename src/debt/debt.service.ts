@@ -40,8 +40,8 @@ export class DebtService {
         });
     }
 
-    deleteDebtById(id: number) {
-        return this.debtRepository.update(id, { isvalid: false })
+    deleteDebtById(id: number, token: string) {
+        return this.debtRepository.update({ id: id, token_chatid: token }, { isvalid: false })
     }
 
     updateDebtById(debt: Debt) {
