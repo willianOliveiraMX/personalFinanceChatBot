@@ -41,7 +41,7 @@ export class DebtController {
         const reultedFormated = result.map(element => {
             return {
                 ...element,
-                dateToPay: dateFormat(element.dateToPay),
+                dateToPay: dateFormat(`${element.dateToPay}`),
                 value: currencyFormatIntToString({ value: element.value }),
                 createdat: dateFormat(`${element.createdat}`),
                 updatedat: dateFormat(`${element.updatedat}`),

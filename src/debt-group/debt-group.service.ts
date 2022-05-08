@@ -12,7 +12,7 @@ export class DebtGroupService {
     ){}
 
     create(debt_group: Debt_group) {
-        return this.debtGroupRepository.save({...debt_group, updatedat: new Date() });
+        return this.debtGroupRepository.save({...debt_group, updatedat: new Date(), createdat: new Date() });
     }
 
     fetch(id: number) {

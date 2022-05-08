@@ -12,7 +12,7 @@ export class DebtService {
     ){}
 
     create(Debt: Debt): any {
-        return this.debtRepository.save({...Debt, updatedat: new Date() });
+        return this.debtRepository.save({...Debt, updatedat: new Date(), createdat: new Date() });
     }
 
     getDebtByUserToken(token: string, pageNumber: number, monthid: number | null): Promise<Debt[]> {

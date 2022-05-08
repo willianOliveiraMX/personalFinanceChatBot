@@ -34,7 +34,7 @@ export class IncomeService {
     }
 
     create(Income: Income): Promise<Income> {
-        return this.incomeRepository.save({...Income, updatedat: new Date() })
+        return this.incomeRepository.save({...Income, updatedat: new Date(), createdat: new Date() })
     }
 
     delete(incomeId: number, token: string): any {

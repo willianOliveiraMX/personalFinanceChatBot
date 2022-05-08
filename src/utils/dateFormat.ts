@@ -1,14 +1,19 @@
 import { format } from 'date-fns';
+import { zonedTimeToUtc } from 'date-fns-tz';
 import { pt } from 'date-fns/locale';
 
 const pattern = "d/LLLL/yyyy' às 'HH:mm'h'"
 
 export const dateFormat = (date: string) => {
-    return format(new Date(date), pattern, { locale: pt });
+    const utcDate = zonedTimeToUtc(new Date(date), 'America/Sao_Paulo');
+
+    return format(new Date(utcDate), pattern, { locale: pt });
 };
 
 export const dateFormatMonthYear = (date: string) => {
-    return format(new Date(date), "LLLL 'de' yyyy", { locale: pt });
+    const utcDate = zonedTimeToUtc(new Date(date), 'America/Sao_Paulo');
+
+    return format(new Date(utcDate), "LLLL 'de' yyyy", { locale: pt });
 }
 
 export default dateFormat;
