@@ -20,7 +20,7 @@ export class DebtService {
         return this.debtRepository.find({ 
             where: { token_chatid: token, ...(monthid ? {monthid: monthid} : null), isvalid: true}, 
             order: {
-                'id': 'ASC'
+                'id': 'DESC'
             },
             take: 5,
             skip
