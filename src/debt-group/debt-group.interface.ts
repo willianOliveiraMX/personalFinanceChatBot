@@ -6,4 +6,5 @@ export interface Debt_group {
     updatedat?: Timestamp,
     createdat?: Timestamp,
     isvalid?: boolean,
+    token_chatid?: string,
 }

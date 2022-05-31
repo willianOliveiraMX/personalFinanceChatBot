@@ -16,4 +16,7 @@ export class debtGroupEntity {
 
   @Column({ default: true })
   isvalid: boolean;
+
+  @Column()
+  token_chatid: string;
 }

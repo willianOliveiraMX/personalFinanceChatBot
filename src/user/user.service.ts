@@ -15,6 +15,12 @@ export class UserService {
     return this.userRepository.findOne(id, { where: { isvalid: true } });
   }
 
+  findAllValid(): Promise<UserInterface[]> {
+    return this.userRepository.find({
+      where: { isvalid: true }
+    });
+  }
+
   findOneByToken(token: string): Promise<UserInterface> {
     return this.userRepository.findOne({ where: { token, isvalid: true } });
   }

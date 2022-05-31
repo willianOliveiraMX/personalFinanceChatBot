@@ -27,6 +27,16 @@ export class DebtService {
         });
     }
 
+    getDebtsByTokenId(token: string, monthid: number) {
+        const list = this.debtRepository.find({
+            where: {
+                token_chatid: token,
+                monthid
+            }
+        });
+        return list;
+    }
+
     getDebtByTokenAndMonthId(token: string, monthid: number): Promise<Debt[]> {
         return this.debtRepository.find({ 
             where: { 
