@@ -56,7 +56,7 @@ export class DebtController {
         return reultedFormated;
     }
 
-    @Cron('* 0 * * *')
+    @Cron('* 12 * * *')
     @UseFilters(new HttpExceptionFilter())
     async createGroupsByDebts() {
         const getGroups = (debts) => {
