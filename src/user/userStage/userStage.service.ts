@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, createQueryBuilder } from 'typeorm';
 import { User_stage } from './userStage.entity';
-import { UserStageInterface } from './userStage.interface';
+import { UserStageInterface, UserStageUpdate } from './userStage.interface';
 
 @Injectable()
 export class UserStageService {
@@ -13,6 +13,12 @@ export class UserStageService {
 
     create(userStageInterface: UserStageInterface): any{
         return this.userStageRepository.save(userStageInterface)
+    }
+
+    update(userStageUpdate: UserStageUpdate): any {
+        return this.userStageRepository.update(userStageUpdate.id, {
+            stageid: userStageUpdate.stageid
+        })
     }
 
     async getUserStageByToken(token: string): Promise<any> {

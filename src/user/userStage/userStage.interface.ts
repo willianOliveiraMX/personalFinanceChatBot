@@ -3,3 +3,8 @@ export interface UserStageInterface {
     temp_userid?: number,
     token_chatid?: string,
 }
+
+export interface UserStageUpdate {
+    id: number,
+    stageid: number
+}

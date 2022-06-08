@@ -90,8 +90,8 @@ export class UserController {
         });
       }
         return userStageItem;
-      }
-    return this.userService.create(userDto)
+    }
+    return this.userService.create(userDto);
   }
 
   @Put()
