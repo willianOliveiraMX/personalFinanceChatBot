@@ -19,8 +19,8 @@ export class DebtGroupService {
         return this.debtGroupRepository.findOne({ where: { id: id }});
     }
 
-    fetchByDescription (description: string) {
-        return this.debtGroupRepository.findOne({ where: { description } });
+    fetchByDescription (description: string, token_chatid: string) {
+        return this.debtGroupRepository.findOne({ where: { description, token_chatid } });
     }
 
     update(debt_group: Debt_group) {

@@ -23,8 +23,8 @@ export class debtDto {
   @IsString()
   isalreadypay: boolean;
 
-  @IsNotEmpty()
   @IsString()
+  @IsOptional()
   groupid: string;
 }
 
