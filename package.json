@@ -34,6 +34,7 @@
     "dotenv": "^16.0.0",
     "knex": "^0.95.15",
     "nestjs-knex": "^2.0.0",
+    "node-telegram-bot-api": "^0.58.0",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

@@ -31,7 +31,17 @@ export class MonthreferenceService {
             }
         );
         
-        if (!result) return null;
+        if (!result) {
+            const newMonthCreated = await this.create();
+
+            return {
+                id: newMonthCreated.id,
+                year: newMonthCreated.year,
+                month: newMonthCreated[parseInt(result.month)],
+                monthNumber: parseInt(newMonthCreated.month),
+                createdat: newMonthCreated.createdat
+            }
+        }
 
         return {
             id: result.id,

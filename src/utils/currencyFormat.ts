@@ -1,11 +1,11 @@
 
 interface currencyProps {
     value: number,
-};
+}
 
 interface currencyStringProps {
     value: string;
-};
+}
 
 export const currencyFormatIntToString = ({ value }: currencyProps): string => {
     if (!value) return '';
@@ -15,7 +15,7 @@ export const currencyFormatIntToString = ({ value }: currencyProps): string => {
 };
 
 export const currencyFormatStringToInt = ({ value }: currencyStringProps): number => {
-    var valueNumber = Number(value.replace(/[^0-9\-]+/g,""));
+    const valueNumber = Number(value.replace(/[^0-9\-]+/g,""));
 
     return valueNumber;
 };

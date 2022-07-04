@@ -1,10 +1,13 @@
 import { Controller, Get, Param, UseFilters } from '@nestjs/common';
+// import { Cron } from '@nestjs/schedule';
 import { HttpExceptionFilter } from 'src/filters/http-filter';
 import { MonthreferenceService } from 'src/monthreference/monthreference.service';
 import { currencyFormatIntToString } from 'src/utils/currencyFormat';
 import { dateFormatMonthYear } from 'src/utils/dateFormat';
 import { totalDebtCalc, totalIncomeCalc } from 'src/utils/totalIncomeCalc';
 import { BalanceService } from './balance.service';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+// const TelegramBot = require('node-telegram-bot-api');
 
 @Controller('balance')
 export class BalanceController {
@@ -12,7 +15,20 @@ export class BalanceController {
     constructor(
         private balanceService: BalanceService,
         private monthreferenceService: MonthreferenceService
-    ) {};
+    ) {}
+
+    // @Cron('* * * * *')
+    // @Get('/send')
+    // async handleCron() {
+    //     const token = '5224890482:AAEFCifp9uFNtrSnBE4faH0AN-mgE-dagBg';
+    //     console.log(TelegramBot);
+    //     const chatId = '1678239401'
+    //     const bot = new TelegramBot(token, { polling: true });
+
+    //     bot.sendMessage(chatId, 'Hello! from API!');
+    //     console.log('This cron runs');
+    // }
+    // create send report by monday and daily
 
     @Get(':token')
     @UseFilters(new HttpExceptionFilter())
